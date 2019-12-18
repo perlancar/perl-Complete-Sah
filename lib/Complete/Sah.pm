@@ -174,10 +174,7 @@ sub complete_from_schema {
 
                 $fres = combine_answers(
                     grep { defined } map {
-                        complete_from_schema(
-                            schema=>Data::Sah::Normalize::normalize_schema($_),
-                            word => $word,
-                        )
+                        complete_from_schema(schema=>$_, word => $word)
                     } @{ $cs->{of} }
                 );
                 goto RETURN_RES; # directly return result
