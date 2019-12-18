@@ -11,7 +11,7 @@ use Complete::Sah qw(complete_from_schema);
 # XXX bool 0/1
 
 subtest "schema must be normalized" => sub {
-    dies_ok { complete_from_schema(schema=>'int', word=>'') };
+    dies_ok { complete_from_schema(schema=>'int', word=>'', schema_is_normalized=>1) };
 };
 
 subtest "is clause" => sub {
@@ -171,7 +171,6 @@ subtest any => sub {
     my $sch;
 
     $sch = [any => {of => [ [str => in=>["1a"]], [int => min=>-2, max=>7] ]}];
-    diag explain complete_from_schema(schema=>$sch, word=>'');
     is_deeply(complete_from_schema(schema=>$sch, word=>''),
               {words=>[map { +{word=>$_, summary=>undef} }
                            qw/1a -1 -2 0 1 2 3 4 5 6 7/], static=>1});

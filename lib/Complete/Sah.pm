@@ -39,6 +39,10 @@ _
             summary => 'Must be normalized',
             req => 1,
         },
+        schema_is_normalized => {
+            schema => 'bool',
+            default => 0,
+        },
         word => {
             schema => [str => default => ''],
             req => 1,
@@ -47,8 +51,13 @@ _
 };
 sub complete_from_schema {
     my %args = @_;
-    my $sch  = $args{schema}; # must be normalized
+    my $sch  = $args{schema};
     my $word = $args{word} // "";
+
+    unless ($args{schema_is_normalized}) {
+        require Data::Sah::Normalize;
+        $sch =Data::Sah::Normalize::normalize_schema($sch);
+    }
 
     my $fres;
     log_trace("[compsah] entering complete_from_schema, word=<%s>, schema=%s", $word, $sch);
