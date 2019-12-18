@@ -36,7 +36,12 @@ complete from the `in` clause. Or for something like `[int => between => [1,
 _
     args => {
         schema => {
-            summary => 'Must be normalized',
+            description => <<'_',
+
+Will be normalized, unless when `schema_is_normalized` is set to true, in which
+case schema must already be normalized.
+
+_
             req => 1,
         },
         schema_is_normalized => {
