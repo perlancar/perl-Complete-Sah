@@ -307,12 +307,34 @@ sub complete_from_schema {
             return; # from eval
         }
     }; # eval
-
     log_trace("[compsah] complete_from_schema died: %s", $@) if $@;
+
+    my $replace_map;
+  GET_REPLACE_MAP:
+    {
+        last unless $cs->{prefilters};
+        # TODO: make replace_map in Complete::Util equivalent as
+        # Str::replace_map's map.
+        for my $entry (@{ $cs->{prefilters} }) {
+            next unless ref $entry eq 'ARRAY';
+            next unless $entry->[0] eq 'Str::replace_map';
+            $replace_map = {};
+            for my $k (keys %{ $entry->[1]{map} }) {
+                my $v = $entry->[1]{map}{$k};
+                $replace_map->{$v} = [$k];
+            }
+            last;
+        }
+    }
 
     goto RETURN_RES unless $words;
     $fres = hashify_answer(
-        complete_array_elem(array=>$words, summaries=>$summaries, word=>$word),
+        complete_array_elem(
+            array=>$words,
+            summaries=>$summaries,
+            word=>$word,
+            (replace_map => $replace_map) x !!$replace_map,
+        ),
         {static=>$static && $word eq '' ? 1:0},
     );
 
