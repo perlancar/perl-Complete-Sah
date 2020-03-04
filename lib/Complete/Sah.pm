@@ -152,6 +152,7 @@ sub complete_from_schema {
             log_trace("[compsah] adding completion from schema's 'examples' clause");
             for my $eg (@{ $cs->{'examples'} }) {
                 if (ref $eg eq 'HASH') {
+                    next unless !exists($eg->{valid}) || $eg->{valid};
                     next unless defined $eg->{value};
                     next if ref $eg->{value};
                     push @$words, $eg->{value};
