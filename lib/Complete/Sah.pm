@@ -163,8 +163,8 @@ sub complete_from_schema {
                     push @$summaries, undef;
                 }
             }
-            $static++;
-            return; # from eval. there should not be any other value
+            #$static++;
+            #return; # from eval. there should not be any other value
         }
         if ($type eq 'any') {
             # because currently Data::Sah::Normalize doesn't recursively
