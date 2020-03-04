@@ -1,3 +1,8 @@
+0.006   2020-03-04  Released-By: PERLANCAR; Urgency: medium
+
+	- Don't use invalid examples.
+
+
 0.005   2020-03-04  Released-By: PERLANCAR; Urgency: medium
 
 	- When schema has examples, we no longer just complete from the
