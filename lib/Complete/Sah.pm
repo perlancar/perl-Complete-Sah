@@ -72,7 +72,7 @@ sub complete_from_schema {
     # schema might be based on other schemas, if that is the case, let's try to
     # look at Sah::SchemaR::* module to quickly find the base type
     unless ($type =~ /\A(all|any|array|bool|buf|cistr|code|date|duration|float|hash|int|num|obj|re|str|undef)\z/) {
-        no strict 'refs';
+        no strict 'refs'; ## no critic: TestingAndDebugging::ProhibitNoStrict
         my $pkg = "Sah::SchemaR::$type";
         (my $pkg_pm = "$pkg.pm") =~ s!::!/!g;
         eval { require $pkg_pm; 1 };
