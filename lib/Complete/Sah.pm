@@ -1,10 +1,5 @@
 package Complete::Sah;
 
-# AUTHORITY
-# DATE
-# DIST
-# VERSION
-
 use 5.010001;
 use strict;
 use warnings;
@@ -12,10 +7,14 @@ use Log::ger;
 
 use Complete::Common qw(:all);
 use Complete::Util qw(combine_answers complete_array_elem hashify_answer);
+use Exporter qw(import);
+
+# AUTHORITY
+# DATE
+# DIST
+# VERSION
 
 our %SPEC;
-require Exporter;
-our @ISA       = qw(Exporter);
 our @EXPORT_OK = qw(complete_from_schema);
 
 $SPEC{':package'} = {
@@ -36,6 +35,7 @@ complete from the `in` clause. Or for something like `[int => between => [1,
 _
     args => {
         schema => {
+            schema => ['any*', of=>['str*', 'array*']], # XXX sah::schema
             description => <<'_',
 
 Will be normalized, unless when `schema_is_normalized` is set to true, in which
