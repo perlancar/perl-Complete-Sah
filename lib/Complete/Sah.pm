@@ -53,7 +53,7 @@ _
             req => 1,
         },
     },
-    result_is_naked => 1,
+    result_naked => 1,
 };
 sub complete_from_schema {
     my %args = @_;
