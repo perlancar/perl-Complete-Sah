@@ -32,9 +32,7 @@ schema is `[str => in => [qw/new open resolved rejected/]]`, then we can
 complete from the `in` clause. Or for something like `[int => between => [1,
 20]]` we can complete using values from 1 to 20.
 
-Tips:
-
-1. If you want to give summary for each entry in `in` clause, you can use the
+Tip: If you want to give summary for each entry in `in` clause, you can use the
 `x.in.summaries` attribute, example:
 
     # schema
