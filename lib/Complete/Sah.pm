@@ -135,9 +135,15 @@ sub complete_from_schema {
                 }
             }
             if ($comp) {
+                # create a validator, to be used by the completion routine
+                #require Data::Sah;
+                #my $vdr = Data::Sah::gen_validator($sch, {schema_is_normalized=>1});
+
                 my %cargs = (
                     %{$args{extras} // {}},
                     word=>$word, arg=>$args{arg}, args=>$args{args},
+                    #_schema_validator => $vdr,
+                    _schema => $sch,
                 );
                 log_trace("[compsah] using arg completion routine from schema's 'x.completion' attribute with args (%s)", \%cargs);
                 $fres = $comp->(%cargs);
